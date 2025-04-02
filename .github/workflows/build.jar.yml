@@ -1,10 +1,11 @@
-name: Build JAR and Docker Image
+name: Build JAR
+
 on:
   push:
     branches:
       - main
   pull_request:
-    branches"
+    branches:
       - main
   workflow_dispatch: 
 

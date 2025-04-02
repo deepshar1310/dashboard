@@ -1,0 +1,32 @@
+name: Build JAR and Docker Image
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches"
+      - main
+  workflow_dispatch: 
+
+jobs:
+  build:
+     runs-on: ubuntu-lastest
+
+     steps:
+       - name: Checkout repository
+         uses: action/checkout@v3
+
+       - name: set up JDK 17
+         uses: actios/setup-java@v3
+         with:
+           distribution: 'termurin'
+           cache:  'maven'
+       - name: Build JAR with Maven
+         run: |
+           mvn clean package -DskipTests
+
+       - name: Upload JAR as artifact
+         uses: actions/upload-artifacts@v3
+         with:
+           name: rocketmq-dashboard-jar
+           path: target/*.jar
